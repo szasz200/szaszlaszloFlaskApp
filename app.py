@@ -36,9 +36,7 @@ from models import Restaurant, Review
 
 @app.route('/', methods=['GET'])
 def index():
-    print('Request for index page received')
-    restaurants = Restaurant.query.all()
-    return render_template('index.html', restaurants=restaurants)
+    return "Its working. "
 
 @app.route('/<int:id>', methods=['GET'])
 def details(id):

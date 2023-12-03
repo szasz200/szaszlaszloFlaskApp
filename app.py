@@ -41,14 +41,14 @@ def add_temp():
     try:
         name = request.values.get('device_name')
         time = request.values.get('time')
-        teperature = request.values.get('temp')
+        temp = request.values.get('temp')
     except (KeyError):
         return "Wrong temperature request."
     else:
         teperature = Temperature()
         teperature.name = name
         teperature.time = time
-        teperature.temperature = teperature
+        teperature.temperature = temp
         db.session.add(teperature)
         db.session.commit()
 

@@ -42,7 +42,7 @@ def index():
     deviceData = Temperature.query.all()
     for device in deviceData:
         if (device.name not in actualData.keys()) or (actualData[device.name].time < device.time):
-            device.time = datetime.fromtimestamp(device.time)
+            device.time = str(datetime.fromtimestamp(int(device.time)))
             actualData[device.name] = device
     return render_template('index.html', devices = actualData.values())
 

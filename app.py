@@ -76,7 +76,13 @@ def add_config():
         return "Wrong temperature request."
     else:
         setConfig = True
-        index()
+        deviceData = Temperature.query.all()
+        actualData = {}
+        for device in deviceData:
+            if (device.name not in actualData.keys()) or (actualData[device.name].time < device.time):
+                device.time = str(datetime.fromtimestamp(int(device.time.replace('"',""))))
+                actualData[device.name] = device
+        return render_template('index.html', devices = actualData.values())
 
 @app.route('/temp', methods=['POST'])
 def add_temp():
@@ -94,6 +100,7 @@ def add_temp():
         db.session.add(temperature)
         db.session.commit()
         if setConfig:
+            setConfig = False
             return str(time)+"|"+str(sleep), 200
         else:
             return "Good temperature request with: " +name+time+temp, 201

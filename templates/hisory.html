@@ -65,4 +65,8 @@
       {% else %}
           <p>No temperatures yet.</p>
       {% endif %}
+
+      <div class="d-flex justify-content-end">
+              <a href="{{ url_for('history') }}" class="btn btn-success px-4 gap-3">Get history</a>
+      </div>
 {% endblock %}

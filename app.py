@@ -40,8 +40,12 @@ def index():
         response = response + device + "\t"
         response = response + actualData[device][0]+ ";" + actualData[device][1] + "\n"
     restaurants = Temperature.query.all()
-    return render_template('index.html', devices = restaurants)
+    return render_template('history.html', devices = restaurants)
 
+@app.route('/history', methods=['GET'])
+def history():
+    restaurants = Temperature.query.all()
+    return render_template('history.html', devices = restaurants)
 
 @app.route('/temp', methods=['POST'])
 def add_temp():

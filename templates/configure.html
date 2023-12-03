@@ -15,14 +15,15 @@
     <form method="POST" action="{{ url_for('add_config') }}">
         <div class="mb-3">
           <label for="current_time" class="form-label">Set Time</label>
-          <input type="text" class="form-control" id="current_time" name="current_time">
+          <input type="text" class="form-control" id="current_time" name="current_time" value={{datas[0]}}>
         </div>
         <div class="mb-3">
           <label for="sleep_min" class="form-label">Sampling(min)</label>
-          <input type="text" class="form-control" id="sleep_min" name="sleep_min">
+          <input type="text" class="form-control" id="sleep_min" name="sleep_min" value={{datas[0]}}>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="cancel" class="btn btn-primary">Cancel</button>
+        <div class="d-flex justify-content-end">
+          <a href="{{ url_for('add_config') }}" class="btn btn-success px-4 gap-3">Submit</a>
+  </div>
     </form>
 {% endblock %}
     

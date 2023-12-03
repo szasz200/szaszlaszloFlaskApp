@@ -65,7 +65,7 @@ def deleteDatas():
 
 @app.route('/configure', methods=['GET'])
 def configure():
-    return render_template('configure.html')
+    return render_template('configure.html', datas = (str(time),str(sleep)))
 
 @app.route('/add_config', methods=['POST'])
 def add_config():

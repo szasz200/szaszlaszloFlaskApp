@@ -41,29 +41,29 @@
   </style>
 {% endblock %}
 {% block content %}
-      <h1>Devices</h1>
+      <h1>Logs</h1>
 
       {% if True %}
           <table class="table">
               <thead>
                   <tr>
-                      <th>Name</th>
+                      <th>Id</th>
                       <th>Time</th>
-                      <th class="text-end">Temperature</th>
+                      <th class="text-end">Content</th>
                   </tr>
               </thead>
               <tbody>
-                  {% for device in devices %}
+                  {% for log in logs %}
                       <tr>
-                          <td>{{ device.name }}</td>
-                          <td>{{ device.time }}</td>
-                          <td class="text-end">{{ device.temperature }}</td>
+                          <td>{{ log.id }}</td>
+                          <td>{{ log.time }}</td>
+                          <td class="text-end">{{ log.content }}</td>
                       </tr>
                   {% endfor %}
               </tbody>
           </table>
       {% else %}
-          <p>No temperatures yet.</p>
+          <p>No logs yet.</p>
       {% endif %}
 
       <div class="d-flex justify-content-end">

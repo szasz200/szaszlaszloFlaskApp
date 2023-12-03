@@ -25,7 +25,9 @@ app.config.update(
 
 # Initialize the database connection
 db = SQLAlchemy(app)
-actualData = {}
+setConfig = False
+time = datetime.now().timestamp()
+sleep = 5
 
 # Enable Flask-Migrate commands "flask db init/migrate/upgrade" to work
 migrate = Migrate(app, db)
@@ -35,11 +37,8 @@ from models import Temperature, Log
 
 @app.route('/', methods=['GET'])
 def index():
-    response = ""
-    #♦for device in actualData.keys():
-    #    response = response + device + "\t"
-    #    response = response + actualData[device][0]+ ";" + actualData[device][1] + "\n"
     deviceData = Temperature.query.all()
+    actualData = {}
     for device in deviceData:
         if (device.name not in actualData.keys()) or (actualData[device.name].time < device.time):
             device.time = str(datetime.fromtimestamp(int(device.time.replace('"',""))))
@@ -51,17 +50,32 @@ def history():
     datas = Temperature.query.all()
     return render_template('history.html', devices = datas)
 
-@app.route('/history', methods=['GET'])
+@app.route('/logs', methods=['GET'])
 def logs():
     datas = Log.query.all()
-    return render_template('history.html', devices = datas)
+    return render_template('logs.html', devices = datas)
 
 @app.route('/delete', methods=['GET'])
-def deleteTemperatures():
+def deleteDatas():
     db.session.query(Temperature).delete()
+    db.session.query(Log).delete()
     db.session.commit()
     datas = Temperature.query.all()
-    return render_template('history.html', devices = datas)
+    return render_template('index.html', devices = datas)
+
+@app.route('/configure', methods=['POST'])
+def configure():
+    return render_template('configure.html')
+
+def add_config():
+    try:
+        time = request.values.get('current_time')
+        sleep = request.values.get('sleep_min')
+    except (KeyError):
+        return "Wrong temperature request."
+    else:
+        setConfig = True
+        index()
 
 @app.route('/temp', methods=['POST'])
 def add_temp():
@@ -78,8 +92,10 @@ def add_temp():
         temperature.temperature = temp
         db.session.add(temperature)
         db.session.commit()
-        actualData[name] = (time, temp)
-        return "Good temperature request with: " +name+time+temp
+        if setConfig:
+            return str(time)+"|"+str(sleep), 200
+        else:
+            return "Good temperature request with: " +name+time+temp, 201
 
 @app.route('/log', methods=['POST'])
 def add_log():

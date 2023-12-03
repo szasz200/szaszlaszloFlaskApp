@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Restaurant Create{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+      body {
+          min-height: 75rem;
+          padding-top: 4.5rem;
+      }
+  </style>
+{% endblock %}
+{% block content %}
+    <h1>Configure devices</h1>
+
+    <form method="POST" action="{{ url_for('add_config') }}">
+        <div class="mb-3">
+          <label for="current_time" class="form-label">Set Time</label>
+          <input type="text" class="form-control" id="current_time" name="current_time">
+        </div>
+        <div class="mb-3">
+          <label for="sleep_min" class="form-label">Sampling(min)</label>
+          <input type="text" class="form-control" id="sleep_min" name="sleep_min">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="cancel" class="btn btn-primary">Cancel</button>
+    </form>
+{% endblock %}
+    

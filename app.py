@@ -76,16 +76,13 @@ def add_log():
             'error_message': "Error adding review",
         })
     else:
-        review = Log()
-        review.restaurant = id
-        review.review_date = datetime.now()
-        review.user_name = user_name
-        review.rating = int(rating)
-        review.review_text = review_text
-        db.session.add(review)
+        log = Log()
+        log.time = time
+        log.content = content
+        db.session.add(log)
         db.session.commit()
 
-    return redirect(url_for('details', id=id))
+    return "Good log."
 
 @app.route('/favicon.ico')
 def favicon():

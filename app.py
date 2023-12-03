@@ -41,7 +41,7 @@ def index():
     #    response = response + actualData[device][0]+ ";" + actualData[device][1] + "\n"
     restaurants = Temperature.query.all()
     for device in restaurants:
-        if (device.name not in actualData.keys()) or (actualData[device.name].temperature < device.temperature):
+        if (device.name not in actualData.keys()) or (actualData[device.name].time < device.time):
             actualData[device.name] = device
     return render_template('index.html', devices = actualData.values())
 
@@ -52,7 +52,8 @@ def history():
 
 @app.route('/delete', methods=['GET'])
 def deleteTemperatures():
-    Temperature.query.delete()
+    db.session.query(Temperature).delete()
+    db.session.commit()
     datas = Temperature.query.all()
     return render_template('history.html', devices = datas)
 

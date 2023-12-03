@@ -41,8 +41,9 @@ def index():
     #    response = response + actualData[device][0]+ ";" + actualData[device][1] + "\n"
     restaurants = Temperature.query.all()
     for device in restaurants:
-        response = response + device.time + device.temperature
-    return response
+        if (device.name not in actualData.keys()) or (actualData[device.name].temperature < device.temperature):
+            actualData[device.name] = device
+    return render_template('index.html', devices = actualData.values())
 
 @app.route('/history', methods=['GET'])
 def history():

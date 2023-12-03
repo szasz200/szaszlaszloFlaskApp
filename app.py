@@ -35,7 +35,6 @@ from models import Temperature, Log
 
 @app.route('/', methods=['GET'])
 def index():
-    temperatures = Temperature.select()
     response = ""
     for device in actualData.keys():
         response = response + device + "\t"

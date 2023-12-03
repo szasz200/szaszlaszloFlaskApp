@@ -45,11 +45,11 @@ def add_temp():
     except (KeyError):
         return "Wrong temperature request."
     else:
-        teperature = Temperature()
-        teperature.name = name
-        teperature.time = time
-        teperature.temperature = temp
-        db.session.add(teperature)
+        temperature = Temperature()
+        temperature.name = name
+        temperature.time = time
+        temperature.temperature = temp
+        db.session.add(temperature)
         db.session.commit()
 
         return "Good temperature request"

@@ -35,7 +35,10 @@ from models import Temperature, Log
 @app.route('/', methods=['GET'])
 def index():
     temperatures = Temperature.query.all()
-    return str(temperatures[0])
+    response = ""
+    for temperatur in temperatures:
+        response = response + temperatur + ";"
+    return response
 
 @app.route('/temp', methods=['POST'])
 def add_temp():

@@ -39,7 +39,7 @@ def index():
     for device in actualData.keys():
         response = response + device + "\t"
         response = response + actualData[device][0]+ ";" + actualData[device][1] + "\n"
-    return response
+    return render_template('index.html', devices = actualData)
 
 
 @app.route('/temp', methods=['POST'])

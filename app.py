@@ -54,9 +54,7 @@ def add_temp():
         time = request.values.get('time')
         teperature = request.values.get('temp')
     except (KeyError):
-        return render_template('add_restaurant.html', {
-            'error_message': "You must include a restaurant name, address, and description",
-        })
+        return "Wrong temperature request."
     else:
         teperature = Temperature()
         teperature.name = name
@@ -65,7 +63,7 @@ def add_temp():
         db.session.add(teperature)
         db.session.commit()
 
-        return redirect(url_for('details', id=restaurant.id))
+        return "Good temperature request"
 
 @app.route('/log', methods=['POST'])
 def add_log():

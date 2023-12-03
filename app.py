@@ -34,7 +34,7 @@ from models import Temperature, Log
 
 @app.route('/', methods=['GET'])
 def index():
-    temperatures = Temperature.query.all()
+    temperatures = Temperature.select()
     response = ""
     for temperatur in temperatures:
         response = response + str(temperatur) + ";"

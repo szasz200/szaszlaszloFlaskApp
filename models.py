@@ -1,32 +1,23 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
-from sqlalchemy.orm import validates
+from sqlalchemy import Column, DateTime, Integer, String
 
 from app import db
 
 
-class Restaurant(db.Model):
+class Temperature(db.Model):
     __tablename__ = 'restaurant'
     id = Column(Integer, primary_key=True)
     name = Column(String(50))
-    street_address = Column(String(50))
-    description = Column(String(250))
+    time = Column(String(50))
+    temperature = Column(String(6))
 
     def __str__(self):
         return self.name
 
-class Review(db.Model):
-    __tablename__ = 'review'
+class Log(db.Model):
+    __tablename__ = 'log'
     id = Column(Integer, primary_key=True)
-    restaurant = Column(Integer, ForeignKey('restaurant.id', ondelete="CASCADE"))
-    user_name = Column(String(30))
-    rating = Column(Integer)
-    review_text = Column(String(500))
-    review_date = Column(DateTime)
-
-    @validates('rating')
-    def validate_rating(self, key, value):
-        assert value is None or (1 <= value <= 5)
-        return value
+    time = Column(String(50))
+    content = Column(String(250))
 
     def __str__(self):
-        return f"{self.user_name}: {self.review_date:%x}"
+        return self.content

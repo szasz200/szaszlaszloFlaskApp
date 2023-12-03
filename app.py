@@ -63,7 +63,7 @@ def deleteDatas():
     datas = Temperature.query.all()
     return render_template('index.html', devices = datas)
 
-@app.route('/configure', methods=['POST'])
+@app.route('/configure', methods=['GET'])
 def configure():
     return render_template('configure.html')
 

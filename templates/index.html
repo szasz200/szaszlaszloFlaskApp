@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Restaurant List{% endblock %}
+{% block title %}Actual temperatures list{% endblock %}
 {% block head %}
     {{ super() }}
     <style>
@@ -41,29 +41,29 @@
   </style>
 {% endblock %}
 {% block content %}
-      <h1>Restaurants</h1>
+      <h1>Devices</h1>
 
       {% if True %}
           <table class="table">
               <thead>
                   <tr>
                       <th>Name</th>
-                      <th>Rating</th>
-                      <th class="text-end">Details</th>
+                      <th>Time</th>
+                      <th class="text-end">Temperature</th>
                   </tr>
               </thead>
               <tbody>
-                  {% for restaurant in restaurants %}
+                  {% for device in devices %}
                       <tr>
-                          <td>{{ restaurant.name }}</td>
-                          <td>{% include "star_rating.html" %}</td>
-                          <td class="text-end"><a href="{{ url_for('details', id=restaurant.id) }}" class="btn btn-sm btn-primary">Details</a></td>
+                          <td>{{ device.name }}</td>
+                          <td>{{ device.time }}</td>
+                          <td>{{ device.temperature }}</td>
                       </tr>
                   {% endfor %}
               </tbody>
           </table>
       {% else %}
-          <p>No restaurants exist.  Select Add new restaurant to add one.</p>
+          <p>No temperatures yet.</p>
       {% endif %}
 
       <div class="d-flex justify-content-end">

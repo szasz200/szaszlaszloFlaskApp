@@ -38,7 +38,7 @@ def index():
     response = ""
     for temperatur in temperatures:
         response = response + str(temperatur) + ";"
-    return response
+    return str(temperatures[0][0])
 
 @app.route('/temp', methods=['POST'])
 def add_temp():

@@ -36,16 +36,18 @@ from models import Temperature, Log
 @app.route('/', methods=['GET'])
 def index():
     response = ""
-    for device in actualData.keys():
-        response = response + device + "\t"
-        response = response + actualData[device][0]+ ";" + actualData[device][1] + "\n"
+    #♦for device in actualData.keys():
+    #    response = response + device + "\t"
+    #    response = response + actualData[device][0]+ ";" + actualData[device][1] + "\n"
     restaurants = Temperature.query.all()
-    return render_template('history.html', devices = restaurants)
+    for device in restaurants:
+        response = response + device.time + device.temperature
+    return response
 
 @app.route('/history', methods=['GET'])
 def history():
-    restaurants = Temperature.query.all()
-    return render_template('history.html', devices = restaurants)
+    datas = Temperature.query.all()
+    return render_template('history.html', devices = datas)
 
 @app.route('/temp', methods=['POST'])
 def add_temp():

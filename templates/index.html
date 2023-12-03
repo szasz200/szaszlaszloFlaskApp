@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Actual temperatures list{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+      body {
+          min-height: 75rem;
+          padding-top: 4.5rem;
+      }
+
+      .score {
+        display: block;
+        font-size: 16px;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .score-wrap {
+        display: inline-block;
+        position: relative;
+        height: 19px;
+      }
+      
+      .score .stars-active {
+        color: #EEBD01;
+        position: relative;
+        z-index: 10;
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      
+      .score .stars-inactive {
+        color: grey;
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-text-stroke: initial;
+        /* overflow: hidden; */
+      }
+  </style>
+{% endblock %}
+{% block content %}
+      <h1>Devices</h1>
+
+      {% if True %}
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Time</th>
+                      <th class="text-end">Temperature</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for device in devices %}
+                      <tr>
+                          <td>{{ device.name }}</td>
+                          <td>{{ device.time }}</td>
+                          <td>{{ device.temperature }}</td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      {% else %}
+          <p>No temperatures yet.</p>
+      {% endif %}
+
+      <div class="d-flex justify-content-end">
+              <a href="{{ url_for('history') }}" class="btn btn-success px-4 gap-3">Get history</a>
+      </div>
+{% endblock %}

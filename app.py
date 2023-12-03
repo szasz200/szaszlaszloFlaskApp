@@ -25,6 +25,7 @@ app.config.update(
 
 # Initialize the database connection
 db = SQLAlchemy(app)
+actualData = {}
 
 # Enable Flask-Migrate commands "flask db init/migrate/upgrade" to work
 migrate = Migrate(app, db)
@@ -36,9 +37,12 @@ from models import Temperature, Log
 def index():
     temperatures = Temperature.select()
     response = ""
-    for temperatur in temperatures:
-        response = response + str(temperatur) + ";"
-    return str(temperatures[1])
+    for device in actualData.keys():
+        response = response + device + "\t"
+        response = response + actualData[device][0]+ ";" + actualData[device][1] + "\n"
+    return response
+
+
 @app.route('/temp', methods=['POST'])
 def add_temp():
     try:
@@ -54,7 +58,7 @@ def add_temp():
         temperature.temperature = temp
         db.session.add(temperature)
         db.session.commit()
-
+        actualData[name] = (time, temp)
         return "Good temperature request with: " +name+time+temp
 
 @app.route('/log', methods=['POST'])

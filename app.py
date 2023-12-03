@@ -37,7 +37,7 @@ def index():
     temperatures = Temperature.query.all()
     response = ""
     for temperatur in temperatures:
-        response = response + temperatur + ";"
+        response = response + str(temperatur) + ";"
     return response
 
 @app.route('/temp', methods=['POST'])

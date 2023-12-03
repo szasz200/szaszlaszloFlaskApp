@@ -39,9 +39,10 @@ def index():
     #♦for device in actualData.keys():
     #    response = response + device + "\t"
     #    response = response + actualData[device][0]+ ";" + actualData[device][1] + "\n"
-    restaurants = Temperature.query.all()
-    for device in restaurants:
+    deviceData = Temperature.query.all()
+    for device in deviceData:
         if (device.name not in actualData.keys()) or (actualData[device.name].time < device.time):
+            device.time = datetime.fromtimestamp(device.time)
             actualData[device.name] = device
     return render_template('index.html', devices = actualData.values())
 

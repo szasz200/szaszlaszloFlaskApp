@@ -67,6 +67,7 @@ def deleteDatas():
 def configure():
     return render_template('configure.html')
 
+@app.route('/add_config', methods=['POST'])
 def add_config():
     try:
         time = request.values.get('current_time')

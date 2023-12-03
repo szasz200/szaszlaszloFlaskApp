@@ -50,6 +50,12 @@ def history():
     datas = Temperature.query.all()
     return render_template('history.html', devices = datas)
 
+@app.route('/delete', methods=['GET'])
+def deleteTemperatures():
+    Temperature.query.delete()
+    datas = Temperature.query.all()
+    return render_template('history.html', devices = datas)
+
 @app.route('/temp', methods=['POST'])
 def add_temp():
     try:

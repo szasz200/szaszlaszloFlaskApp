@@ -39,7 +39,8 @@ def index():
     for device in actualData.keys():
         response = response + device + "\t"
         response = response + actualData[device][0]+ ";" + actualData[device][1] + "\n"
-    return render_template('index.html', devices = actualData)
+    restaurants = Temperature.query.all()
+    return render_template('index.html', devices = restaurants)
 
 
 @app.route('/temp', methods=['POST'])

@@ -36,17 +36,6 @@ from models import Temperature, Log
 def index():
     return "Its working. "
 
-@app.route('/<int:id>', methods=['GET'])
-def details(id):
-    restaurant = Temperature.query.where(Temperature.id == id).first()
-    reviews = Log.query.where(Log.restaurant == id)
-    return render_template('details.html', restaurant=restaurant, reviews=reviews)
-
-@app.route('/create', methods=['GET'])
-def create_restaurant():
-    print('Request for add restaurant page received')
-    return render_template('create_restaurant.html')
-
 @app.route('/temp', methods=['POST'])
 def add_temp():
     try:
@@ -59,7 +48,7 @@ def add_temp():
         teperature = Temperature()
         teperature.name = name
         teperature.time = time
-        teperature.teperature = teperature
+        teperature.temperature = teperature
         db.session.add(teperature)
         db.session.commit()
 

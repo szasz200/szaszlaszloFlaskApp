@@ -51,6 +51,11 @@ def history():
     datas = Temperature.query.all()
     return render_template('history.html', devices = datas)
 
+@app.route('/history', methods=['GET'])
+def logs():
+    datas = Log.query.all()
+    return render_template('history.html', devices = datas)
+
 @app.route('/delete', methods=['GET'])
 def deleteTemperatures():
     db.session.query(Temperature).delete()

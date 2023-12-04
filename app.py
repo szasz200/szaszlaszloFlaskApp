@@ -93,6 +93,7 @@ def add_temp():
     except (KeyError):
         return "Wrong temperature request."
     else:
+        global setConfig
         temperature = Temperature()
         temperature.name = name
         temperature.time = time

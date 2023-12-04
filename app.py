@@ -53,7 +53,7 @@ def history():
 @app.route('/logs', methods=['GET'])
 def logs():
     datas = Log.query.all()
-    return render_template('logs.html', devices = datas)
+    return render_template('logs.html', logs = datas)
 
 @app.route('/delete', methods=['GET'])
 def deleteDatas():
